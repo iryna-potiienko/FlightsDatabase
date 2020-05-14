@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,13 +33,17 @@ namespace FlightsDatabase.Models
         public int PlaneId { get; set; }
         //Потрібні 2 різних ForeignKey на таблицю Airport
         //Таким чином як тут це правильно організовувати?
+        //[OnDeleteNoAction]
+        //[NotMapped]
         public int AirportDepartureId { get; set; }
         public int AirportArrivalId { get; set; }
 
         [Display(Name = "Назва літака")]
         public virtual Plane Plane { get; set; }
+        [ForeignKey("AirportDepartureId")]
         [Display(Name = "Відправлення з аіропорту")]
         public virtual Airport AirportDeparture { get; set; }
+        [ForeignKey("AirportArrivalId")]
         [Display(Name = "Прибуття у аіропорт")]
         public virtual Airport AirportArrival { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }

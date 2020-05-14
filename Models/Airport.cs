@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +11,8 @@ namespace FlightsDatabase.Models
     {
         public Airport()
         {
-            Flights = new List<Flight>();
+            FlightsDeparture = new List<Flight>();
+            FlightsArrival = new List<Flight>();
         }
         public int Id { get; set; }
 
@@ -26,6 +28,10 @@ namespace FlightsDatabase.Models
        
         [Display(Name = "Країна")]
         public virtual Country Country { get; set; }
-        public virtual ICollection<Flight> Flights { get; set; }
+        //[NotMapped]
+        
+        public virtual ICollection<Flight> FlightsDeparture { get; set; }
+       // [NotMapped]
+        public virtual ICollection<Flight> FlightsArrival { get; set; }
     }
 }

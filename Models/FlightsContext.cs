@@ -20,5 +20,25 @@ namespace FlightsDatabase.Models
         {
             Database.EnsureCreated();
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Flight>()
+                        .HasOne(m => m.AirportDeparture)
+                        .WithMany(t => t.FlightsDeparture)
+                        .HasForeignKey(m => m.AirportDepartureId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<Flight>()
+                        .HasOne(m => m.AirportArrival)
+                        .WithMany(t => t.FlightsArrival)
+                        .HasForeignKey(m => m.AirportArrivalId)
+                        .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Passenger>()
+                .HasKey(p => p.Passport)
+                .HasName("PK_Passport");
+        }
     }
 }
