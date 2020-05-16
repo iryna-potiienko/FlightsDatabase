@@ -6,14 +6,19 @@
 
   <ItemGroup>
     <Compile Remove="ClientApp\NewFolder\**" />
+    <Compile Remove="ClientApp\node_modules12\**" />
     <Compile Remove="ClientApp\node_modules\**" />
     <Content Remove="ClientApp\NewFolder\**" />
+    <Content Remove="ClientApp\node_modules12\**" />
     <Content Remove="ClientApp\node_modules\**" />
     <EmbeddedResource Remove="ClientApp\NewFolder\**" />
+    <EmbeddedResource Remove="ClientApp\node_modules12\**" />
     <EmbeddedResource Remove="ClientApp\node_modules\**" />
     <None Remove="ClientApp\NewFolder\**" />
+    <None Remove="ClientApp\node_modules12\**" />
     <None Remove="ClientApp\node_modules\**" />
     <TypeScriptCompile Remove="ClientApp\NewFolder\**" />
+    <TypeScriptCompile Remove="ClientApp\node_modules12\**" />
     <TypeScriptCompile Remove="ClientApp\node_modules\**" />
   </ItemGroup>
 
@@ -56,7 +61,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
-    <PackageReference Include="TypeScript.MSBuildTask" Version="1.7.3" />
   </ItemGroup>
 
   <ItemGroup>
