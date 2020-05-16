@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FlightsDatabase.Models;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 namespace WebAp
 {
@@ -23,6 +24,10 @@ namespace WebAp
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<FlightsContext>(options => options.UseSqlServer(connection));
             services.AddControllers();
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -32,13 +37,28 @@ namespace WebAp
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseDefaultFiles();
+          //  app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
 
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }
