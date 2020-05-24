@@ -9,17 +9,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-let AppModule = /** @class */ (() => {
-    let AppModule = class AppModule {
-    };
-    AppModule = __decorate([
-        NgModule({
-            imports: [BrowserModule, FormsModule, HttpClientModule],
-            declarations: [AppComponent],
-            bootstrap: [AppComponent]
-        })
-    ], AppModule);
-    return AppModule;
-})();
+let AppModule = class AppModule {
+};
+AppModule = __decorate([
+    NgModule({
+        imports: [BrowserModule, FormsModule, HttpClientModule],
+        declarations: [AppComponent],
+        bootstrap: [AppComponent]
+    })
+], AppModule);
 export { AppModule };
 //# sourceMappingURL=app.module.js.map
