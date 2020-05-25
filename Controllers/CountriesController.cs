@@ -13,9 +13,11 @@ namespace FlightsDatabase.Controllers
     [ApiController]
     public class CountriesController : ControllerBase
     {
-        private readonly FlightsContext _context;
+        //private readonly FlightsContext _context;
 
-        public CountriesController(FlightsContext context)
+        private readonly IRepository _context;
+
+        public CountriesController(IRepository context)
         {
             _context = context;
         }
@@ -56,7 +58,7 @@ namespace FlightsDatabase.Controllers
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.Save();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -80,7 +82,7 @@ namespace FlightsDatabase.Controllers
         public async Task<ActionResult<Country>> PostCountry(Country country)
         {
             _context.Countries.Add(country);
-            await _context.SaveChangesAsync();
+            await _context.Save();
 
             return CreatedAtAction("GetCountry", new { id = country.Id }, country);
         }
@@ -96,7 +98,7 @@ namespace FlightsDatabase.Controllers
             }
 
             _context.Countries.Remove(country);
-            await _context.SaveChangesAsync();
+            await _context.Save();
 
             return country;
         }

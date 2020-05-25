@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlightsDatabase.Models
 {
-    public class FlightsContext: DbContext
+    public class FlightsContext: DbContext, IRepository
     {
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Airport> Airports { get; set; }
@@ -19,6 +19,16 @@ namespace FlightsDatabase.Models
             : base(options)
         {
             Database.EnsureCreated();
+        }
+
+        public void MarkAsModified<T>(T item)
+        {
+            Entry(item).State = EntityState.Modified;
+        }
+
+        public Task Save()
+        {
+            return SaveChangesAsync();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

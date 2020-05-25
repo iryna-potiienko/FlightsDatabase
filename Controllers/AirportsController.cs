@@ -37,6 +37,7 @@ namespace FlightsDatabase.Controllers
             {
                 return NotFound();
             }
+            airport.Country = await _context.Countries.FindAsync(airport.CountryId);
 
             return airport;
         }
@@ -76,13 +77,19 @@ namespace FlightsDatabase.Controllers
         // POST: api/Airports
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<Airport>> PostAirport(Airport airport)
+        [HttpPost("{countryId}")]
+        public async Task<ActionResult<Airport>> PostAirport(int countryId, Airport airport)
         {
+            airport.CountryId = countryId;
+            var country = await _context.Countries.FindAsync(countryId);
+            airport.Country = country;
             _context.Airports.Add(airport);
+
+            //country.Airports.Add(airport);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAirport", new { id = airport.Id }, airport);
+           // return CreatedAtAction("GetAirport", new { id = airport.Id }, airport);
+            return CreatedAtAction(nameof(GetAirport), new { id = airport.Id }, airport);
         }
 
         // DELETE: api/Airports/5

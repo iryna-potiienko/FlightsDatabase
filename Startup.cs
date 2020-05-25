@@ -21,8 +21,11 @@ namespace WebAp
         {
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddScoped<IRepository, FlightsContext>();
             services.AddDbContext<FlightsContext>(options => options.UseSqlServer(connection));
             services.AddControllers();
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
